@@ -8,6 +8,8 @@ import java.util.HashMap;
 public class CharFrequencyService {
 
     public HashMap<Character, Integer> getCharFrequencyFromString(String str) {
+        if (str == null) return new HashMap<>();
+
         HashMap<Character, Integer> map = new HashMap<>();
 
         for (Character ch : str.toCharArray()) {

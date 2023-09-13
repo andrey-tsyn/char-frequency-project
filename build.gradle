@@ -16,10 +16,21 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'org.noname.charfrequencyproject.CharFrequencyProjectApplication')
+    }
+}
+
+springBoot {
+    mainClass = 'org.noname.charfrequencyproject.CharFrequencyProjectApplication'
 }

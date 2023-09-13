@@ -24,13 +24,15 @@ json
 
 json
 
-```{
-    "status": "OK",
-    "data": [
-        {"key": "a", "value": 5},
-        {"key": "c", "value": 4},
-        {"key": "b", "value": 1}
-    ]
+```
+{
+    "isSuccess": true,
+    "result": {
+        "a": 5,
+        "c": 4,
+        "b": 1
+    },
+    "error": null
 }
 ```
 

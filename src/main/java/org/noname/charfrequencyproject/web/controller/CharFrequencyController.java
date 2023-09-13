@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -23,5 +24,21 @@ public class CharFrequencyController {
         this.frequencyService = frequencyService;
     }
 
+    @PostMapping("/calculateFrequency")
+    public ResponseEntity<Result<Map<Character, Integer>>> getCharFrequencyFromString(
+            @RequestBody Map<String, String> body) {
+        String inputString = body.get("inputString");
 
+        if (inputString == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "'inputString' parameter must be passed in request body.");
+        }
+
+        var map = frequencyService.getCharFrequencyFromString(inputString).entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        return ResponseEntity.ok(Result.ok(map));
+    }
 }
